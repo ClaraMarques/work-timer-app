@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:work_timer_app/app/blocs/auth_bloc.dart';
 import 'package:work_timer_app/app/locator.dart';
+import 'package:work_timer_app/app/ui/widgets/stream_widget.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -13,11 +14,22 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       body: Center(
         child: RaisedButton.icon(
-          icon: Icon(Icons.check),
+          icon: _buildIconWithLoading(),
           label: Text("Sign in with Google"),
           onPressed: locator.get<AuthBloc>().loginWithGoogle,
         ),
       ),
+    );
+  }
+
+  Widget _buildIconWithLoading() {
+    return StreamWidget<bool>(
+      stream: locator.get<AuthBloc>().loading$,
+      errorBuilder: (context, snapshot) => Icon(Icons.error),
+      waitingBuilder: (context, snapshot) => Container(),
+      activeBuilder: (context, snapshot) => snapshot.data
+          ? SizedBox(width: 16, height: 16, child: CircularProgressIndicator())
+          : Icon(Icons.check),
     );
   }
 }

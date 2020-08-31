@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:work_timer_app/app/blocs/auth_bloc.dart';
+import 'package:work_timer_app/app/locator.dart';
 
 import '../../data/models/user_model.dart';
 
@@ -10,7 +12,7 @@ class AvatarWidget extends StatelessWidget {
 
     return PopupMenuButton<String>(
       icon: _buildAvatarPhoto(user),
-      onSelected: (String value) {},
+      onSelected: _onPopupItemSelected,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
         PopupMenuItem<String>(
           value: "profile",
@@ -44,5 +46,11 @@ class AvatarWidget extends StatelessWidget {
         : CircleAvatar(
             backgroundImage: NetworkImage(user.photo),
           );
+  }
+
+  void _onPopupItemSelected(String value) {
+    if (value == "exit") {
+      locator.get<AuthBloc>().logOut();
+    }
   }
 }

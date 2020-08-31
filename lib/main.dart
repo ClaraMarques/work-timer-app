@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:work_timer_app/app/ui/widgets/stream_widget.dart';
 
 import 'app/blocs/auth_bloc.dart';
 import 'app/data/models/user_model.dart';
@@ -43,27 +44,16 @@ class WorkTimerApp extends StatelessWidget {
   }
 
   Widget _getViewBasedOnAuthState() {
-    return StreamBuilder<User>(
+    return StreamWidget<User>(
       stream: locator.get<AuthBloc>().user$,
-      builder: (context, snapshot) {
-        print(snapshot);
-        if (snapshot.hasError) {
-          return ErrorView(error: snapshot.error);
-        }
-
-        if (snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.data != User.empty) {
-            return Provider<User>.value(
+      errorBuilder: (context, snapshot) => ErrorView(error: snapshot.error),
+      waitingBuilder: (context, snapshot) => LoadingView(),
+      activeBuilder: (context, snapshot) => snapshot.data != User.empty
+          ? Provider<User>.value(
               value: snapshot.data,
               child: HomeView(),
-            );
-          } else {
-            return LoginView();
-          }
-        }
-
-        return LoadingView();
-      },
+            )
+          : LoginView(),
     );
   }
 }
