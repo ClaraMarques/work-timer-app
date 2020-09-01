@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1090112257114",
+    "firebase_url": "https://work-timer-ng.firebaseio.com",
+    "project_id": "work-timer-ng",
+    "storage_bucket": "work-timer-ng.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090112257114:android:7be243ea16d7df3174ac63",
+        "android_client_info": {
+          "package_name": "com.example.work_timer_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090112257114-k9aimd2mlkot9o5ojccluo1ct1clti0o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.work_timer_app",
+            "certificate_hash": "b430677fef3f8852a62965b36e40c3d263c7a868"
+          }
+        },
+        {
+          "client_id": "1090112257114-mmrcqt6q971im3fglfovu97b9bs4firt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWILeC1BEKYxJ1_IM8SuQWhXhKP700FV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090112257114-mmrcqt6q971im3fglfovu97b9bs4firt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1090112257114-o71l75lqsgmq4enbcl824s5s8m8d8636.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.workTimerApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,6 +11,7 @@ class AvatarWidget extends StatelessWidget {
     final user = Provider.of<User>(context);
 
     return PopupMenuButton<String>(
+      padding: EdgeInsets.zero,
       icon: _buildAvatarPhoto(user),
       onSelected: _onPopupItemSelected,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -38,14 +39,7 @@ class AvatarWidget extends StatelessWidget {
   }
 
   Widget _buildAvatarPhoto(User user) {
-    return user == null
-        ? CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Text(user.name[0]),
-          )
-        : CircleAvatar(
-            backgroundImage: NetworkImage(user.photo),
-          );
+    return CircleAvatar(backgroundImage: NetworkImage(user.photo));
   }
 
   void _onPopupItemSelected(String value) {

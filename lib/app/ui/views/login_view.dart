@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:work_timer_app/app/blocs/auth_bloc.dart';
 import 'package:work_timer_app/app/locator.dart';
-import 'package:work_timer_app/app/ui/widgets/stream_widget.dart';
+import 'package:work_timer_app/app/ui/widgets/custom_stream_builder.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _buildIconWithLoading() {
-    return StreamWidget<bool>(
+    return CustomStreamBuilder<bool>(
       stream: locator.get<AuthBloc>().loading$,
       errorBuilder: (context, snapshot) => Icon(Icons.error),
       waitingBuilder: (context, snapshot) => Container(),

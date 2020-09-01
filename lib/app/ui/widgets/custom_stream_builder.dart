@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class StreamWidget<T> extends StatelessWidget {
+class CustomStreamBuilder<T> extends StatelessWidget {
   final Stream<T> _stream;
   final Widget Function(BuildContext, AsyncSnapshot<T>) _builder;
   final Widget Function(BuildContext, AsyncSnapshot<T>) _activeBuilder;
@@ -8,7 +8,7 @@ class StreamWidget<T> extends StatelessWidget {
   final Widget Function(BuildContext, AsyncSnapshot<T>) _waitingBuilder;
   final bool _debugMode;
 
-  StreamWidget({
+  CustomStreamBuilder({
     @required Stream<T> stream,
     @required Widget Function(BuildContext, AsyncSnapshot<T>) activeBuilder,
     @required Widget Function(BuildContext, AsyncSnapshot<T>) errorBuilder,

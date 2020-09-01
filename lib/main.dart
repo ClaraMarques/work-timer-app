@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:work_timer_app/app/ui/widgets/stream_widget.dart';
+import 'package:work_timer_app/app/ui/widgets/custom_stream_builder.dart';
 
 import 'app/blocs/auth_bloc.dart';
 import 'app/data/models/user_model.dart';
@@ -44,7 +44,7 @@ class WorkTimerApp extends StatelessWidget {
   }
 
   Widget _getViewBasedOnAuthState() {
-    return StreamWidget<User>(
+    return CustomStreamBuilder<User>(
       stream: locator.get<AuthBloc>().user$,
       errorBuilder: (context, snapshot) => ErrorView(error: snapshot.error),
       waitingBuilder: (context, snapshot) => LoadingView(),
