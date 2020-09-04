@@ -10,41 +10,35 @@ class AvatarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
 
-    return PopupMenuButton<String>(
-      padding: EdgeInsets.zero,
-      icon: _buildAvatarPhoto(user),
-      onSelected: _onPopupItemSelected,
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-        PopupMenuItem<String>(
-          value: "profile",
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: _buildAvatarPhoto(user),
-            title: Text(user.name),
-            subtitle: FittedBox(child: Text(user.email)),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () => showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: _buildUserInfo(user),
           ),
         ),
-        PopupMenuItem<String>(
-          value: "exit",
-          child: Row(
-            children: [
-              Icon(Icons.exit_to_app),
-              SizedBox(width: 8),
-              Text("Exit"),
-            ],
-          ),
-        ),
-      ],
+        child: _buildAvatarPhoto(user),
+      ),
     );
   }
 
-  Widget _buildAvatarPhoto(User user) {
-    return CircleAvatar(backgroundImage: NetworkImage(user.photo));
+  Widget _buildAvatarPhoto(User user, {double radius}) {
+    return CircleAvatar(
+      backgroundImage: NetworkImage(user.photo),
+      radius: radius,
+    );
   }
 
-  void _onPopupItemSelected(String value) {
-    if (value == "exit") {
-      locator.get<AuthBloc>().logOut();
-    }
+  Widget _buildUserInfo(User user) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildAvatarPhoto(user, radius: 64),
+        Text(user.name),
+        Text(user.email)
+      ],
+    );
   }
 }
