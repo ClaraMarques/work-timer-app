@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
-import 'package:work_timer_app/app/data/models/interval_model.dart';
+
+import 'interval_model.dart';
 
 enum WorkdayStatus { IN_PROGRESS, DONE, START }
 

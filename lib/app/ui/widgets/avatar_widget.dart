@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:work_timer_app/app/blocs/auth_bloc.dart';
-import 'package:work_timer_app/app/locator.dart';
 
 import '../../data/models/user_model.dart';
 
@@ -17,6 +15,14 @@ class AvatarWidget extends StatelessWidget {
           context: context,
           builder: (context) => AlertDialog(
             content: _buildUserInfo(user),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }, // TODO: add log out service call.
+                child: Text('Log out'),
+              )
+            ],
           ),
         ),
         child: _buildAvatarPhoto(user),
@@ -32,13 +38,10 @@ class AvatarWidget extends StatelessWidget {
   }
 
   Widget _buildUserInfo(User user) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildAvatarPhoto(user, radius: 64),
-        Text(user.name),
-        Text(user.email)
-      ],
+    return ListTile(
+      leading: _buildAvatarPhoto(user),
+      title: Text(user.name),
+      subtitle: FittedBox(child: Text(user.email)),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:work_timer_app/app/ui/widgets/filter_widget.dart';
 
 import '../widgets/avatar_widget.dart';
 import '../widgets/workdays_list_widget.dart';
@@ -15,7 +16,7 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text('Work Timer'),
         leading: AvatarWidget(),
-        actions: [IconButton(icon: Icon(Icons.filter_list), onPressed: () {})],
+        actions: [FilterWidget()],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

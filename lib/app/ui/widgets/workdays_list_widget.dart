@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:work_timer_app/app/data/dummy_data.dart';
-import 'package:work_timer_app/app/ui/widgets/workday_tile_widget.dart';
+
+import '../../data/dummy_data.dart';
+import 'workday_tile_widget.dart';
 
 class WorkdaysListWidget extends StatelessWidget {
   @override
