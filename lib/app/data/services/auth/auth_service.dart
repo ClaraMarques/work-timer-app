@@ -1,19 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:work_timer_app/app/data/services/firestore_service.dart';
 
 import '../../models/user_model.dart';
 
 import 'auth_interface.dart';
 
 class AuthService implements AuthInterface {
-  final GoogleSignIn _googleSignIn;
+  GoogleSignIn _googleSignIn;
+  FirestoreService _firestoreService;
 
-  AuthService({GoogleSignIn googleSignIn})
-      : _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+  AuthService(FirestoreService firestoreService, {GoogleSignIn googleSignIn}) {
+    assert(firestoreService != null);
+    _firestoreService = firestoreService;
+    _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+  }
 
   @override
   User get loggedUser {
-    return fb.FirebaseAuth.instance.currentUser?.toUser() ?? User.empty;
+    final user = fb.FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final response = _firestoreService.getUser(user.uid);
+      return response is User ? response : User.empty;
+    }
+    return User.empty;
   }
 
   @override
@@ -39,7 +49,10 @@ class AuthService implements AuthInterface {
     final userCredential =
         await fb.FirebaseAuth.instance.signInWithCredential(credential);
 
-    return userCredential.user?.toUser() ?? User.empty;
+    final user = userCredential.user?.toUser() ?? User.empty;
+    _firestoreService.createUser(user);
+
+    return user;
   }
 
   Future<void> logOut() async {

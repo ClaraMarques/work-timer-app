@@ -1,11 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-@immutable
 class User extends Equatable {
-  const User({
+  User({
     @required this.email,
-    @required this.id,
+    this.id,
     @required this.name,
     @required this.photo,
   })  : assert(email != null),
@@ -15,7 +14,7 @@ class User extends Equatable {
   final String email;
 
   /// The current user's id.
-  final String id;
+  String id;
 
   /// The current user's name (display name).
   final String name;
@@ -24,7 +23,17 @@ class User extends Equatable {
   final String photo;
 
   /// Empty user which represents an unauthenticated user.
-  static const empty = User(email: '', id: '', name: null, photo: null);
+  static final empty = User(email: '', id: '', name: null, photo: null);
+
+  void setId(String id) {
+    this.id = id;
+  }
+
+  User.fromData(Map<String, dynamic> data)
+      : id = data['id'],
+        name = data['name'],
+        email = data['email'],
+        photo = data['photo'];
 
   @override
   List<Object> get props => [email, id, name, photo];

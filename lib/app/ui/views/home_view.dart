@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:work_timer_app/app/blocs/auth_bloc.dart';
+import 'package:work_timer_app/app/data/services/auth/auth_interface.dart';
+import 'package:work_timer_app/app/locator.dart';
 
 import '../widgets/avatar_widget.dart';
 import '../widgets/workdays_list_widget.dart';
@@ -15,7 +18,13 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text('Work Timer'),
         leading: AvatarWidget(),
-        actions: [IconButton(icon: Icon(Icons.filter_list), onPressed: () {})],
+        actions: [
+          IconButton(
+              icon: Icon(Icons.filter_list),
+              onPressed: () {
+                locator.get<AuthBloc>().logOut();
+              })
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

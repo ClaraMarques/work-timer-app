@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:work_timer_app/app/data/dummy_data.dart';
-import 'package:work_timer_app/app/ui/widgets/workday_tile_widget.dart';
 
-class WorkdaysListWidget extends StatelessWidget {
+import '../../data/dummy_data.dart';
+import 'workday_tile_widget.dart';
+
+class WorkdaysListWidget extends StatefulWidget {
+  @override
+  _WorkdaysListWidgetState createState() => _WorkdaysListWidgetState();
+}
+
+class _WorkdaysListWidgetState extends State<WorkdaysListWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
