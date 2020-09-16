@@ -75,7 +75,7 @@ final day3 = WorkdayModel(
 final day4 = WorkdayModel(
   date: DateTime(2020, 9, 3),
   intervals: intervals4,
-  status: WorkdayStatus.DONE,
+  status: WorkdayStatus.IN_PROGRESS,
 );
 
 final daysInfo = <WorkdayModel>[day1, day2, day3, day4];
