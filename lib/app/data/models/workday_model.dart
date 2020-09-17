@@ -3,17 +3,24 @@ import 'package:intl/intl.dart';
 
 import 'interval_model.dart';
 
-enum WorkdayStatus { IN_PROGRESS, DONE, START }
+enum WorkdayStatus { IN_PROGRESS, DONE, START, PAUSED }
 
+// adicionado um atributo para saber se é o dia de hoje
+// workdayId para quando for criar um documento no firestore
 class WorkdayModel {
+  final workdayId;
+  final today;
   final List<IntervalModel> intervals;
   final DateTime date;
+
   double hoursWorked;
   String dateString;
   String weekday;
   WorkdayStatus status;
 
   WorkdayModel({
+    this.today = false,
+    @required this.workdayId,
     @required this.date,
     @required this.intervals,
     @required this.status,

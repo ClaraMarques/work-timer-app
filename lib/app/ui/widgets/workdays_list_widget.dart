@@ -14,12 +14,14 @@ class _WorkdaysListWidgetState extends State<WorkdaysListWidget> {
     super.initState();
   }
 
+  // itemBuilder constroi os tiles em ordem reversa
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: EdgeInsets.only(left: 14.0, right: 14.0, top: 14.0),
       itemCount: daysInfo.length,
-      itemBuilder: (context, index) => WorkdayTile(daysInfo[index]),
+      itemBuilder: (context, index) =>
+          WorkdayTile(daysInfo[daysInfo.length - 1 - index]),
     );
   }
 }

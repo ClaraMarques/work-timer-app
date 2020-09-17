@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:work_timer_app/app/data/services/firestore_service.dart';
 
 import '../../models/user_model.dart';
-
+import '../database/firestore_service.dart';
 import 'auth_interface.dart';
 
 class AuthService implements AuthInterface {
@@ -50,9 +49,14 @@ class AuthService implements AuthInterface {
         await fb.FirebaseAuth.instance.signInWithCredential(credential);
 
     final user = userCredential.user?.toUser() ?? User.empty;
-    _firestoreService.createUser(user);
+    final userCreated = await _firestoreService.createUser(user);
 
-    return user;
+    if (!userCreated) {
+      logOut();
+      return User.empty;
+    } else {
+      return user;
+    }
   }
 
   Future<void> logOut() async {

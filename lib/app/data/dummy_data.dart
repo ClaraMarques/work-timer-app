@@ -58,24 +58,27 @@ List<IntervalModel> intervals4 = [
 ];
 
 final day1 = WorkdayModel(
+  workdayId: 1,
   date: DateTime(2020, 8, 31),
   intervals: intervals1,
-  status: WorkdayStatus.START,
+  status: WorkdayStatus.DONE,
 );
 final day2 = WorkdayModel(
+  workdayId: 2,
   date: DateTime(2020, 9, 1),
   intervals: intervals2,
   status: WorkdayStatus.DONE,
 );
 final day3 = WorkdayModel(
+  workdayId: 3,
   date: DateTime(2020, 9, 2),
   intervals: intervals3,
   status: WorkdayStatus.DONE,
 );
 final day4 = WorkdayModel(
-  date: DateTime(2020, 9, 3),
-  intervals: intervals4,
-  status: WorkdayStatus.IN_PROGRESS,
-);
+    workdayId: 4,
+    date: DateTime(2020, 9, 3),
+    intervals: intervals4,
+    status: WorkdayStatus.DONE);
 
 final daysInfo = <WorkdayModel>[day1, day2, day3, day4];
