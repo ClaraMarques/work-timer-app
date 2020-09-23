@@ -25,6 +25,19 @@ class WorkdayModel {
     @required this.intervals,
     @required this.status,
   }) {
+    initializeProperties();
+  }
+
+  WorkdayModel.fromJson(Map<String, dynamic> json)
+      : today = json['today'],
+        workdayId = json['workdayId'],
+        date = json['date'],
+        intervals = json['intervals'],
+        status = json['status'] {
+    initializeProperties();
+  }
+
+  void initializeProperties() {
     this.dateString = DateFormat.MMMMd().format(this.date);
     this.weekday = DateFormat.EEEE().format(this.date);
 

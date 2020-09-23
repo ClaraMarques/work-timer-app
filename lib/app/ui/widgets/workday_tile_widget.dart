@@ -41,13 +41,17 @@ class WorkdayTile extends StatelessWidget {
             );
           } else {
             final workday = snapshot.data;
-            return Card(
-              elevation: 3,
-              child: CustomListTileWidget(
-                leading: _buildStatus(context, workday),
-                title: workday.dateString,
-                subtitle: workday.weekday,
-                trailing: _buildTrailing(context, workday),
+            return GestureDetector(
+              onLongPress:
+                  workday.today ? () => _buildAlertDialog(context) : () => {},
+              child: Card(
+                elevation: 3,
+                child: CustomListTileWidget(
+                  leading: _buildStatus(context, workday),
+                  title: workday.dateString,
+                  subtitle: workday.weekday,
+                  trailing: _buildTrailing(context, workday),
+                ),
               ),
             );
           }
@@ -107,5 +111,26 @@ class WorkdayTile extends StatelessWidget {
       return PlayPauseButtonWidget(
           context: context, size: trailingSize, workdayModel: workday);
     }
+  }
+
+  void _buildAlertDialog(BuildContext context) async {
+    return await showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: FittedBox(child: Text('SET WORK DAY AS COMPLETED ?')),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('YES'),
+                onPressed: () {
+                  locator
+                      .get<WorkdayBloc>()
+                      .changeStatus(workday, WorkdayStatus.DONE);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

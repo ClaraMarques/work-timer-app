@@ -11,6 +11,14 @@ class IntervalModel extends Equatable {
     @required this.end,
   }) : assert(start != null, end != null);
 
+  IntervalModel.fromJson(Map<String, dynamic> json)
+      : start = json['start'],
+        end = json['end'];
+
+  Map<String, dynamic> toJson() {
+    return {'start': this.start, 'end': this.end};
+  }
+
   double get elapsedTime {
     return end.difference(start).inMilliseconds / 3600000;
   }

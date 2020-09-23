@@ -19,8 +19,12 @@ class AuthService implements AuthInterface {
   User get loggedUser {
     final user = fb.FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final response = _firestoreService.getUser(user.uid);
-      return response is User ? response : User.empty;
+      try {
+        final response = _firestoreService.getUser(user.uid);
+        return response is User ? response : User.empty;
+      } catch (e) {
+        return User.empty;
+      }
     }
     return User.empty;
   }
@@ -49,13 +53,13 @@ class AuthService implements AuthInterface {
         await fb.FirebaseAuth.instance.signInWithCredential(credential);
 
     final user = userCredential.user?.toUser() ?? User.empty;
-    final userCreated = await _firestoreService.createUser(user);
 
-    if (!userCreated) {
+    try {
+      await _firestoreService.createUser(user);
+      return user;
+    } catch (e) {
       logOut();
       return User.empty;
-    } else {
-      return user;
     }
   }
 

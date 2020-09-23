@@ -29,11 +29,20 @@ class User extends Equatable {
     this.id = id;
   }
 
-  User.fromData(Map<String, dynamic> data)
+  User.fromJson(Map<String, dynamic> data)
       : id = data['id'],
         name = data['name'],
         email = data['email'],
         photo = data['photo'];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': this.id,
+      'name': this.name,
+      'email': this.email,
+      'photo': this.photo
+    };
+  }
 
   @override
   List<Object> get props => [email, id, name, photo];

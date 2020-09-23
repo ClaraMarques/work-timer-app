@@ -27,10 +27,12 @@ class WorkdayBloc {
     final updatedWorkday = workday;
     if (newStatus == WorkdayStatus.IN_PROGRESS) {
       _currentIntervalStartTime = DateTime.now();
-    } else if (newStatus == WorkdayStatus.PAUSED) {
+    } else if (newStatus == WorkdayStatus.PAUSED ||
+        newStatus == WorkdayStatus.DONE) {
       final intervalCompleted =
           IntervalModel(start: _currentIntervalStartTime, end: DateTime.now());
       updatedWorkday.intervals.add(intervalCompleted);
+      print(workday.hoursWorked);
     }
     updatedWorkday.status = newStatus;
     _workdaySubject.add(updatedWorkday);
