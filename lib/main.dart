@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:work_timer_app/app/ui/widgets/custom_stream_builder.dart';
 
 import 'app/blocs/auth_bloc.dart';
 import 'app/data/models/user_model.dart';
@@ -10,6 +9,7 @@ import 'app/ui/views/error_view.dart';
 import 'app/ui/views/home_view.dart';
 import 'app/ui/views/loading_view.dart';
 import 'app/ui/views/login_view.dart';
+import 'app/ui/widgets/custom_stream_builder.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:work_timer_app/app/blocs/workday_bloc.dart';
+import 'package:work_timer_app/app/data/services/database/database_interface.dart';
 
 import '../../data/dummy_data.dart';
+import '../../locator.dart';
 import 'workday_tile_widget.dart';
 
 class WorkdaysListWidget extends StatefulWidget {
@@ -17,6 +20,8 @@ class _WorkdaysListWidgetState extends State<WorkdaysListWidget> {
   // itemBuilder constroi os tiles em ordem reversa
   @override
   Widget build(BuildContext context) {
+    final daysInfo = locator.get<WorkdayBloc>().daysInfo;
+    print(daysInfo);
     return ListView.builder(
       padding: EdgeInsets.only(left: 14.0, right: 14.0, top: 14.0),
       itemCount: daysInfo.length,
