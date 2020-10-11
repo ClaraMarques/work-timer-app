@@ -23,5 +23,5 @@ void setupLocator() {
   );
 
   // Não é um lazy pois assim que se inicia o aplicativo queremos que o dia de hoje seja adicionado a lista
-  locator.registerSingleton<WorkdayBloc>(WorkdayBloc());
+  locator.registerLazySingleton<WorkdayBloc>(() => WorkdayBloc());
 }

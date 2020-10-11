@@ -8,9 +8,9 @@ enum WorkdayStatus { IN_PROGRESS, DONE, START, PAUSED }
 // adicionado um atributo para saber se é o dia de hoje
 // workdayId para quando for criar um documento no firestore
 class WorkdayModel {
-  var workdayId;
+  String workdayId;
   final today;
-  final List<IntervalModel> intervals;
+  List<IntervalModel> intervals;
   final DateTime date;
 
   double hoursWorked;
@@ -22,18 +22,17 @@ class WorkdayModel {
     this.today = false,
     this.workdayId,
     @required this.date,
-    @required this.intervals,
+    this.intervals,
     @required this.status,
   }) {
     initializeProperties();
   }
-
+// TODO: intervals deveria ser uma colecao, e aqui teriamos o id dessa colecao
   WorkdayModel.fromJson(Map<String, dynamic> json)
       : today = json['today'],
         workdayId = json['workdayId'],
-        date = json['date'],
-        intervals = json['intervals'],
-        status = json['status'] {
+        date = DateTime.fromMillisecondsSinceEpoch(json['date']),
+        status = WorkdayStatus.values[json['status']] {
     initializeProperties();
   }
 
@@ -41,17 +40,18 @@ class WorkdayModel {
     this.dateString = DateFormat.MMMMd().format(this.date);
     this.weekday = DateFormat.EEEE().format(this.date);
 
-    this.hoursWorked = intervals.fold<double>(
-        0, (acc, interval) => acc + interval.elapsedTime);
+    this.hoursWorked = intervals == null
+        ? 0.0
+        : intervals.fold<double>(
+            0, (acc, interval) => acc + interval.elapsedTime);
   }
 
   Map<String, dynamic> toJson() {
     return {
       'today': this.today,
       'workdayId': this.workdayId,
-      'date': this.date,
-      'intervals': this.intervals,
-      'status': this.status
+      'date': this.date.millisecondsSinceEpoch,
+      'status': this.status.index
     };
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class IntervalModel extends Equatable {
   final DateTime start;
   final DateTime end;
+  String id;
 
   IntervalModel({
     @required this.start,
@@ -12,11 +13,16 @@ class IntervalModel extends Equatable {
   }) : assert(start != null, end != null);
 
   IntervalModel.fromJson(Map<String, dynamic> json)
-      : start = json['start'],
-        end = json['end'];
+      : id = json['intervalId'],
+        start = DateTime.fromMillisecondsSinceEpoch(json['start']),
+        end = DateTime.fromMillisecondsSinceEpoch(json['end']);
 
   Map<String, dynamic> toJson() {
-    return {'start': this.start, 'end': this.end};
+    return {
+      'start': this.start.millisecondsSinceEpoch,
+      'end': this.end.millisecondsSinceEpoch,
+      'intervalId': this.id
+    };
   }
 
   double get elapsedTime {

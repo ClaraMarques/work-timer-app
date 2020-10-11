@@ -31,8 +31,8 @@ class WorkdayTile extends StatelessWidget {
 
 // método que possui um stream builder para o dia de hoje, pois ele pode mudar de status
   Widget _buildTodayTile() {
-    return StreamBuilder<WorkdayModel>(
-        stream: locator.get<WorkdayBloc>().workday$,
+    return StreamBuilder<List<WorkdayModel>>(
+        stream: locator.get<WorkdayBloc>().days$,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Card(
@@ -40,7 +40,7 @@ class WorkdayTile extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            final workday = snapshot.data;
+            final workday = snapshot.data[0];
             return GestureDetector(
               onLongPress:
                   workday.today ? () => _buildAlertDialog(context) : () => {},

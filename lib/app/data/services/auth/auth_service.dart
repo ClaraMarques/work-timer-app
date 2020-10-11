@@ -20,8 +20,8 @@ class AuthService implements AuthInterface {
     final user = fb.FirebaseAuth.instance.currentUser;
     if (user != null) {
       try {
-        final response = _firestoreService.getUser(user.uid);
-        return response is User ? response : User.empty;
+        _firestoreService.checkUserInDatabase(user.uid);
+        return user.toUser();
       } catch (e) {
         return User.empty;
       }
